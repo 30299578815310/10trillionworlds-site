@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>10TW v2 — planet test</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #05060a; overflow: hidden; }
+    #info {
+      position: fixed; top: 8px; left: 10px; z-index: 10;
+      font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace; color: #9fdcc0;
+      text-shadow: 0 1px 2px #000; pointer-events: none;
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-R6BrQrjA.js"></script>
+</head>
+<body>
+  <div id="info">cube-sphere planet — core test · drag to orbit, scroll to zoom</div>
+  <div id="err" style="position:fixed;top:0;left:0;right:0;z-index:99;display:none;
+    background:#400;color:#fdd;font:12px/1.4 ui-monospace,Consolas,monospace;
+    padding:8px 10px;white-space:pre-wrap;max-height:50%;overflow:auto;"></div>
+  <script>
+    // On-screen error reporter (no devtools needed). Shows the first uncaught error /
+    // promise rejection so it can be read off the page.
+    (function () {
+      const box = document.getElementById('err');
+      let shown = false;
+      function show(msg) {
+        if (shown) return; shown = true;
+        box.style.display = 'block';
+        box.textContent = 'ERROR: ' + msg;
+      }
+      addEventListener('error', (e) =>
+        show((e.message || e.error) + (e.filename ? `\n${e.filename}:${e.lineno}:${e.colno}` : '') +
+             (e.error && e.error.stack ? `\n${e.error.stack}` : '')));
+      addEventListener('unhandledrejection', (e) =>
+        show('unhandled promise: ' + (e.reason && e.reason.stack ? e.reason.stack : e.reason)));
+    })();
+  </script>
+</body>
+</html>
